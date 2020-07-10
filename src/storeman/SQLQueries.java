@@ -24,9 +24,11 @@ public class SQLQueries {
     private static Connection Conn = null;
 
     public static Connection getConnection() {
+        String filePath="";
         try {
             if (Conn == null) {
-                String filePath = new File("").getAbsolutePath();
+                filePath = new File("").getAbsolutePath();
+                //System.out.println();
                 if(System.getProperty("os.name").startsWith("Windows")){
                      filePath+="\\db\\data_old.db"; 
                 }else{
@@ -36,7 +38,7 @@ public class SQLQueries {
             }
             return Conn;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Database Missing !","Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Database Missing ! "+filePath,"Error",JOptionPane.ERROR_MESSAGE);
             System.out.println(ex.getMessage());
             System.exit(0);
         }
