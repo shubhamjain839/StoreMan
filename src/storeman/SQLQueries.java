@@ -5,12 +5,14 @@
  */
 package storeman;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 
 /**
@@ -24,11 +26,19 @@ public class SQLQueries {
     public static Connection getConnection() {
         try {
             if (Conn == null) {
-                Conn = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\shubh\\StoreMan\\db\\data.db");
+                String filePath = new File("").getAbsolutePath();
+                if(System.getProperty("os.name").startsWith("Windows")){
+                     filePath+="\\db\\data_old.db"; 
+                }else{
+                     filePath+="/db/data_old.db"; 
+                }
+                Conn = DriverManager.getConnection("jdbc:sqlite:"+filePath);
             }
             return Conn;
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Database Missing !","Error",JOptionPane.ERROR_MESSAGE);
             System.out.println(ex.getMessage());
+            System.exit(0);
         }
         return null;
     }
@@ -288,82 +298,92 @@ public class SQLQueries {
         }
         return 0;
     }
-    public static ResultSet getCredentialsTableData(String currentUser){
-        try{
+
+    public static ResultSet getCredentialsTableData(String currentUser) {
+        try {
             Connection con = getConnection();
             String query = "select * from credentials where id <> ?";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setString(1,currentUser);
+            pst.setString(1, currentUser);
             return pst.executeQuery();
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
-        catch(SQLException se){ System.out.println(se.getMessage());}
         return null;
     }
-    public static int deleteUser(String userName){
-        try{
+
+    public static int deleteUser(String userName) {
+        try {
             Connection con = getConnection();
             String query = "delete from credentials where id == ?";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setString(1,userName);
+            pst.setString(1, userName);
             return pst.executeUpdate();
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
-        catch(SQLException se){ System.out.println(se.getMessage());}
         return 0;
     }
-    public static TableModel getInvoiceData(){
-        try{
+
+    public static TableModel getInvoiceData() {
+        try {
             Connection con = getConnection();
             String query = "select * from bills";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(query);
             GetTable gt = new GetTable();
             return gt.setRowCol(rs);
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
-        catch(SQLException se){ System.out.println(se.getMessage());}
         return null;
     }
 
     public static ResultSet getTotalItems() {
-         try{
+        try {
             Connection con = getConnection();
             String query = "select sum(PRODUCT_QUANTITY) from products";
             Statement st = con.createStatement();
             return st.executeQuery(query);
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
-        catch(SQLException se){ System.out.println(se.getMessage());}
         return null;
     }
 
     static ResultSet getTotalProducts() {
-        try{
+        try {
             Connection con = getConnection();
             String query = "select count(PRODUCT_NAME) from products";
             Statement st = con.createStatement();
             return st.executeQuery(query);
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
-        catch(SQLException se){ System.out.println(se.getMessage());}
         return null;
     }
 
     static ResultSet getTotalCategories() {
-        try{
+        try {
             Connection con = getConnection();
             String query = "select count(CATEGORY_NAME) from categories";
             Statement st = con.createStatement();
             return st.executeQuery(query);
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
-        catch(SQLException se){ System.out.println(se.getMessage());}
         return null;
     }
 
     static ResultSet getInventoryValue() {
-        try{
+        try {
             Connection con = getConnection();
             String query = "select sum(PRODUCT_QUANTITY*PRODUCT_RATE) from products";
             Statement st = con.createStatement();
             return st.executeQuery(query);
+        } catch (SQLException se) {
+            System.out.println(se.getMessage());
         }
-        catch(SQLException se){ System.out.println(se.getMessage());}
         return null;
     }
 }

@@ -268,6 +268,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JSpinner" name="txtBillQuantitySpinner">
+              <Properties>
+                <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+                  <SpinnerModel initial="0" minimum="0" numberType="java.lang.Integer" stepSize="1" type="number"/>
+                </Property>
+              </Properties>
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="txtBillQuantitySpinnerStateChanged"/>
               </Events>
@@ -654,9 +659,6 @@
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[500, 500]"/>
         </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[500, 500]"/>
-        </Property>
       </Properties>
 
       <Layout>
@@ -834,9 +836,6 @@
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[500, 500]"/>
         </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[500, 500]"/>
-        </Property>
       </Properties>
       <Events>
         <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="RemoveUserWindowClosing"/>
@@ -957,9 +956,6 @@
     <Container class="javax.swing.JDialog" name="ShowInvoices">
       <Properties>
         <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[800, 700]"/>
-        </Property>
-        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[800, 700]"/>
         </Property>
       </Properties>
@@ -2419,7 +2415,7 @@
                                   <Component id="comboBoxCategory" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="140" max="32767" attributes="0"/>
+                          <EmptySpace pref="137" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -2510,7 +2506,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="315" max="32767" attributes="0"/>
+                              <EmptySpace pref="304" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>

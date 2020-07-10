@@ -318,6 +318,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         labelBillQuantity.setText("Quantity");
 
+        txtBillQuantitySpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         txtBillQuantitySpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 txtBillQuantitySpinnerStateChanged(evt);
@@ -658,7 +659,6 @@ public class MainFrame extends javax.swing.JFrame {
         AddNewUser.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         AddNewUser.setTitle("Add New User");
         AddNewUser.setMinimumSize(new java.awt.Dimension(500, 500));
-        AddNewUser.setPreferredSize(new java.awt.Dimension(500, 500));
 
         AddNewUserPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Add New User"));
         AddNewUserPanel.setMinimumSize(new java.awt.Dimension(500, 500));
@@ -784,7 +784,6 @@ public class MainFrame extends javax.swing.JFrame {
         RemoveUser.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         RemoveUser.setTitle("Remove User");
         RemoveUser.setMinimumSize(new java.awt.Dimension(500, 500));
-        RemoveUser.setPreferredSize(new java.awt.Dimension(500, 500));
         RemoveUser.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 RemoveUserWindowClosing(evt);
@@ -862,7 +861,6 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         ShowInvoices.setMinimumSize(new java.awt.Dimension(800, 700));
-        ShowInvoices.setPreferredSize(new java.awt.Dimension(800, 700));
         ShowInvoices.addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 ShowInvoicesWindowClosing(evt);
@@ -1780,7 +1778,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(AddProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelErrorAddProdQuantity)
                             .addComponent(labelErrorAddProdPrice))))
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addContainerGap(304, Short.MAX_VALUE))
         );
         AddProductPanelLayout.setVerticalGroup(
             AddProductPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1823,7 +1821,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(labelCategory)
                         .addGap(35, 35, 35)
                         .addComponent(comboBoxCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(140, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
         AddProductTabPanelLayout.setVerticalGroup(
             AddProductTabPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2226,16 +2224,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void txtBillQuantitySpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_txtBillQuantitySpinnerStateChanged
         int qty = Integer.parseInt(String.valueOf(txtBillQuantitySpinner.getValue()));
+        boolean check = SQLQueries.checkQuantity(String.valueOf(comboBoxBillProductName.getSelectedItem()), qty);
         if (qty <= 0) {
             btnBillAddItem.setEnabled(false);
-        } else {
-            btnBillAddItem.setEnabled(true);
         }
-        boolean check = SQLQueries.checkQuantity(String.valueOf(comboBoxBillProductName.getSelectedItem()), qty);
-        if (!check) {
+        else if(!check) {
             labelErrorNotMuchQuantity.setText("Ena smaan Haini !!");
             btnBillAddItem.setEnabled(false);
-        } else {
+        } else{
             labelErrorNotMuchQuantity.setText("");
             btnBillAddItem.setEnabled(true);
             txtBillAmount.setText(String.valueOf(qty * Integer.parseInt(txtBillPrice.getText())));
@@ -2628,7 +2624,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JLabel labelAddCategoryName;
     private javax.swing.JLabel labelAddItemInventoryCategory;
     private javax.swing.JLabel labelAddItemInventoryLogo;
