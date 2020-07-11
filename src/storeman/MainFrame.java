@@ -48,6 +48,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         } catch (SQLException s) {
             System.out.print(s.getMessage());
+        }catch(Exception e){
+            //JOptionPane.showMessageDialog(null,"Database Missing ! "+filePath,"Error",JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
         }
     }
 
@@ -2483,16 +2486,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_ShowInvoicesWindowClosing
 
     private void WelcomePanelComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_WelcomePanelComponentShown
-        int totalItems = getTotalItems();
-        int totalProduct = getTotalProducts();
-        int totalCategories = getTotalCategories();
-        int totalInventoryValue = getTotalInventoryValue();
-        txtTotalItem.setText(String.valueOf(totalItems));        
-        txtTotalProduct.setText(String.valueOf(totalProduct));
-        txtTotalCategoies.setText(String.valueOf(totalCategories));
-        txtInventoryalue.setText(String.valueOf(totalInventoryValue));
-
-
+        try{
+            int totalItems = getTotalItems();
+            int totalProduct = getTotalProducts();
+            int totalCategories = getTotalCategories();
+            int totalInventoryValue = getTotalInventoryValue();
+            txtTotalItem.setText(String.valueOf(totalItems));        
+            txtTotalProduct.setText(String.valueOf(totalProduct));
+            txtTotalCategoies.setText(String.valueOf(totalCategories));
+            txtInventoryalue.setText(String.valueOf(totalInventoryValue));
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null,"Database Missing ! ","Error",JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
         //System.out.print("hello");
     }//GEN-LAST:event_WelcomePanelComponentShown
 

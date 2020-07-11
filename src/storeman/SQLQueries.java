@@ -22,25 +22,28 @@ import javax.swing.table.TableModel;
 public class SQLQueries {
 
     private static Connection Conn = null;
-
+    private static String filePath="";
     public static Connection getConnection() {
-        String filePath="";
+        
         try {
             if (Conn == null) {
                 filePath = new File("").getAbsolutePath();
                 //System.out.println();
                 if(System.getProperty("os.name").startsWith("Windows")){
-                     filePath+="\\db\\data_old.db"; 
+                     filePath+="\\db\\test_data.db"; 
                 }else{
-                     filePath+="/db/data_old.db"; 
+                     filePath+="/db/test_data.db"; 
                 }
                 Conn = DriverManager.getConnection("jdbc:sqlite:"+filePath);
             }
             return Conn;
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Database Missing ! "+filePath,"Error",JOptionPane.ERROR_MESSAGE);
+            
             System.out.println(ex.getMessage());
             System.exit(0);
+        } catch(Exception e){
+            JOptionPane.showMessageDialog(null,"Database Missing ! "+filePath,"Error",JOptionPane.ERROR_MESSAGE);
+            //System.exit(0);
         }
         return null;
     }
@@ -53,6 +56,7 @@ public class SQLQueries {
             return st.executeQuery(selectQuery);
         } catch (SQLException s) {
             System.out.print(s.getMessage());
+            JOptionPane.showMessageDialog(null,"Database Missing ! "+filePath,"Error",JOptionPane.ERROR_MESSAGE);
         }
         return null;
     }
@@ -66,6 +70,7 @@ public class SQLQueries {
             GetTable gt = new GetTable();
             return (gt.setRowCol(rs));
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
@@ -88,6 +93,7 @@ public class SQLQueries {
             }
             return res;
         } catch (SQLException e) {
+            
             System.out.print(e.getMessage());
         }
         return new boolean[]{false, false};
@@ -101,6 +107,7 @@ public class SQLQueries {
             pst.setString(1, category);
             return pst.executeQuery();
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
@@ -114,6 +121,7 @@ public class SQLQueries {
             pst.setString(1, productName);
             return pst.executeQuery();
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
@@ -127,6 +135,7 @@ public class SQLQueries {
             st.setString(1, category.toUpperCase());
             return !st.execute();
         } catch (SQLException ex) {
+            
             System.out.println(ex.getMessage());
         }
         return false;
@@ -140,6 +149,7 @@ public class SQLQueries {
             GetTable gt = new GetTable();
             return gt.setRowCol(rs);
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
@@ -154,6 +164,7 @@ public class SQLQueries {
             ResultSet rs = st.executeQuery(query);
             invoice = Integer.parseInt(rs.getString(1));
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return invoice;
@@ -169,6 +180,7 @@ public class SQLQueries {
             pst.setString(3, date);
             pst.execute();
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
     }
@@ -183,6 +195,7 @@ public class SQLQueries {
             pst.setString(2, p_name);
             pst.executeUpdate();
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
     }
@@ -199,6 +212,7 @@ public class SQLQueries {
                 return true;
             }
         } catch (SQLException e) {
+            
             System.out.println(e.getMessage());
         }
         return false;
@@ -215,6 +229,7 @@ public class SQLQueries {
                 return true;
             }
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return false;
@@ -232,6 +247,7 @@ public class SQLQueries {
                 return true;
             }
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return false;
@@ -248,6 +264,7 @@ public class SQLQueries {
             boolean check = pst.execute();
             return !check;
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return false;
@@ -264,6 +281,7 @@ public class SQLQueries {
             pst.setInt(4, quantity);
             return !pst.execute();
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return false;
@@ -281,6 +299,7 @@ public class SQLQueries {
         } catch (NumberFormatException nfe) {
             System.out.print(nfe.getMessage());
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return 0;
@@ -296,6 +315,7 @@ public class SQLQueries {
             pst.setString(3, name);
             return pst.executeUpdate();
         } catch (SQLException ex) {
+            
             System.out.println(ex);
         }
         return 0;
@@ -309,6 +329,7 @@ public class SQLQueries {
             pst.setString(1, currentUser);
             return pst.executeQuery();
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
@@ -322,6 +343,7 @@ public class SQLQueries {
             pst.setString(1, userName);
             return pst.executeUpdate();
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return 0;
@@ -336,6 +358,7 @@ public class SQLQueries {
             GetTable gt = new GetTable();
             return gt.setRowCol(rs);
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
@@ -360,6 +383,7 @@ public class SQLQueries {
             Statement st = con.createStatement();
             return st.executeQuery(query);
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
@@ -372,6 +396,7 @@ public class SQLQueries {
             Statement st = con.createStatement();
             return st.executeQuery(query);
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
@@ -384,6 +409,7 @@ public class SQLQueries {
             Statement st = con.createStatement();
             return st.executeQuery(query);
         } catch (SQLException se) {
+            
             System.out.println(se.getMessage());
         }
         return null;
